@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  # Development services
+  postgres:
+    image: postgres:16.3
+    ports:
+      - '8090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: roam_mate
+      POSTGRES_PASSWORD: "pMeNTH92cm_Q0EKlF4YF1Jhu8hjZ2PwZ"
+    volumes:
+      - roam_mate_data:/var/lib/postgresql/data
+    profiles:
+      - '' # Default profile
+      - dev
+  redis:
+    image: redis:6.2.6
+    ports:
+      - '8091:6379'
+    command: redis-server --requirepass "V2MiUHzNobU6l62CAcwdaVhS_4WV5kIF"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    profiles:
+      - '' # Default profile
+      - dev
+
+  # Test services
+  postgres_test:
+    image: postgres:16.3
+    ports:
+      - '9090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: roam_mate_test
+      POSTGRES_PASSWORD: "1hTc0SGLFc-7TQri27pcm2QcJKp18EyR"
+    volumes:
+      - roam_mate_test_data:/var/lib/postgresql/data
+    profiles:
+      - '' # Default profile
+      - test
+  redis_test:
+    image: redis:6.2.6
+    ports:
+      - '9091:6379'
+    command: redis-server --requirepass "jBtV0QB3ia3fHl2lcQCk-5yGtSr070KW"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    profiles:
+      - '' # Default profile
+      - test
+
+volumes:
+  roam_mate_data:
+  roam_mate_test_data:
