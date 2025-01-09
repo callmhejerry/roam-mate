@@ -1,0 +1,19 @@
+enum: AuthErrorType
+values:
+  - invalidEmailException
+  - missingRequiredFieldException
+  - userNotFoundException
+  - accountNotActivatedException
+  - accountSuspendedException
+  - invalidCredentialsException
+  - passwordMismatchException
+  - invalidResetTokenException
+  - resetTokenExpiredException
+  - emailNotSentException
+  - emailAlreadyExistsException
+  - usernameAlreadyExistsException
+  - failedToSendOtpException
+  - emailAlreadyVerifiedException
+  - otpNotSentException
+  - invalidOTPException
+  

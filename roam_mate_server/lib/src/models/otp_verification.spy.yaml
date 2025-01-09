@@ -1,0 +1,9 @@
+class: OtpVerification
+table: otp_verifcation
+fields:
+  secret: String
+  email: String
+indexes:
+  unique_verification_email_idx:
+    fields: email
+    unique: true

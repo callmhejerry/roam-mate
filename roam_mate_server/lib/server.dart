@@ -1,3 +1,4 @@
+import 'package:roam_mate_server/src/utils/auth_middle_ware.dart';
 import 'package:serverpod/serverpod.dart';
 
 import 'package:roam_mate_server/src/web/routes/root.dart';
@@ -12,7 +13,7 @@ void run(List<String> args) async {
     args,
     Protocol(),
     Endpoints(),
-    authenticationHandler: auth.authenticationHandler,
+    authenticationHandler: AuthMiddleWare.verifyToken,
   );
 
   // If you are using any future calls, they need to be registered here.
@@ -27,11 +28,21 @@ void run(List<String> args) async {
     '/*',
   );
 
-  auth.AuthConfig.set(auth.AuthConfig(
-    minPasswordLength: 8,
-    validationCodeLength: 6,
-    enableUserImages: true,
-  ));
+  auth.AuthConfig.set(
+    auth.AuthConfig(
+      sendValidationEmail: (session, email, validationCode) async {
+        print("VALIDATION CODE: $validationCode");
+        return true;
+      },
+      sendPasswordResetEmail: (session, userInfo, validationCode) async {
+        print("VALIDATION CODE: $validationCode");
+        return true;
+      },
+      minPasswordLength: 8,
+      validationCodeLength: 6,
+      enableUserImages: true,
+    ),
+  );
 
   // Start the server.
   await pod.start();

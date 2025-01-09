@@ -1,0 +1,10 @@
+class: UserProfile
+table: user_profile
+fields:
+  user: User?, relation
+  firstName: String?
+  lastName: String?
+  gender: Gender?
+  courseOfStudy: String?
+  yearEntered: int?
+

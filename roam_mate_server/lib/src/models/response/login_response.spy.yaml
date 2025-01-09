@@ -1,0 +1,4 @@
+class: LoginResponse
+fields:
+  authToken: String
+  user: User

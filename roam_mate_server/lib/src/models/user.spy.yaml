@@ -1,0 +1,15 @@
+class: User
+table: user
+fields:
+  scope: String
+  username: String
+  password: String?, scope=serverOnly
+  email: String
+  verified: bool
+indexes:
+  unique_email_idx:
+    fields: email
+    unique: true
+  unique_username_idx:
+    fields: username
+    unique: true

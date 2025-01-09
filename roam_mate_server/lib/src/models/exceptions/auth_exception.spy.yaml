@@ -1,0 +1,4 @@
+exception: AuthException
+fields:
+  message: String, default="An error occurred"
+  errorType: AuthErrorType

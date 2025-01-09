@@ -1,2 +1,14 @@
+auth:
+  - createAccount:
+  - getSignedInUser:
+  - verifyOtp:
+  - resendOtp:
+  - sendResetPasswordOtp:
+  - resetPassword:
+  - login:
+  - logout:
 example:
   - hello:
+userProfile:
+  - checkUsernameIsAvailable:
+  - updateUserProfile:
