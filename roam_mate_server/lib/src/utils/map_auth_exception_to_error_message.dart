@@ -25,4 +25,6 @@ final authTypeToMessage = <AuthErrorType, String>{
   AuthErrorType.otpNotSentException:
       "An OTP has not been sent to the provided email. Please request a new OTP.",
   AuthErrorType.invalidOTPException: "The provided OTP is incorrect.",
+  AuthErrorType.otpExpiredException:
+      "The provided OTP has expired, please resend OTP",
 };

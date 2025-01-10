@@ -15,20 +15,24 @@ abstract class OtpVerification
     implements _i1.TableRow, _i1.ProtocolSerialization {
   OtpVerification._({
     this.id,
-    required this.secret,
+    required this.otp,
+    required this.expiredAt,
     required this.email,
   });
 
   factory OtpVerification({
     int? id,
-    required String secret,
+    required String otp,
+    required DateTime expiredAt,
     required String email,
   }) = _OtpVerificationImpl;
 
   factory OtpVerification.fromJson(Map<String, dynamic> jsonSerialization) {
     return OtpVerification(
       id: jsonSerialization['id'] as int?,
-      secret: jsonSerialization['secret'] as String,
+      otp: jsonSerialization['otp'] as String,
+      expiredAt:
+          _i1.DateTimeJsonExtension.fromJson(jsonSerialization['expiredAt']),
       email: jsonSerialization['email'] as String,
     );
   }
@@ -40,7 +44,9 @@ abstract class OtpVerification
   @override
   int? id;
 
-  String secret;
+  String otp;
+
+  DateTime expiredAt;
 
   String email;
 
@@ -49,14 +55,16 @@ abstract class OtpVerification
 
   OtpVerification copyWith({
     int? id,
-    String? secret,
+    String? otp,
+    DateTime? expiredAt,
     String? email,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'secret': secret,
+      'otp': otp,
+      'expiredAt': expiredAt.toJson(),
       'email': email,
     };
   }
@@ -65,7 +73,8 @@ abstract class OtpVerification
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
-      'secret': secret,
+      'otp': otp,
+      'expiredAt': expiredAt.toJson(),
       'email': email,
     };
   }
@@ -105,23 +114,27 @@ class _Undefined {}
 class _OtpVerificationImpl extends OtpVerification {
   _OtpVerificationImpl({
     int? id,
-    required String secret,
+    required String otp,
+    required DateTime expiredAt,
     required String email,
   }) : super._(
           id: id,
-          secret: secret,
+          otp: otp,
+          expiredAt: expiredAt,
           email: email,
         );
 
   @override
   OtpVerification copyWith({
     Object? id = _Undefined,
-    String? secret,
+    String? otp,
+    DateTime? expiredAt,
     String? email,
   }) {
     return OtpVerification(
       id: id is int? ? id : this.id,
-      secret: secret ?? this.secret,
+      otp: otp ?? this.otp,
+      expiredAt: expiredAt ?? this.expiredAt,
       email: email ?? this.email,
     );
   }
@@ -130,8 +143,12 @@ class _OtpVerificationImpl extends OtpVerification {
 class OtpVerificationTable extends _i1.Table {
   OtpVerificationTable({super.tableRelation})
       : super(tableName: 'otp_verifcation') {
-    secret = _i1.ColumnString(
-      'secret',
+    otp = _i1.ColumnString(
+      'otp',
+      this,
+    );
+    expiredAt = _i1.ColumnDateTime(
+      'expiredAt',
       this,
     );
     email = _i1.ColumnString(
@@ -140,14 +157,17 @@ class OtpVerificationTable extends _i1.Table {
     );
   }
 
-  late final _i1.ColumnString secret;
+  late final _i1.ColumnString otp;
+
+  late final _i1.ColumnDateTime expiredAt;
 
   late final _i1.ColumnString email;
 
   @override
   List<_i1.Column> get columns => [
         id,
-        secret,
+        otp,
+        expiredAt,
         email,
       ];
 }

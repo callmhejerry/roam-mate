@@ -16,4 +16,5 @@ values:
   - emailAlreadyVerifiedException
   - otpNotSentException
   - invalidOTPException
+  - otpExpiredException
   

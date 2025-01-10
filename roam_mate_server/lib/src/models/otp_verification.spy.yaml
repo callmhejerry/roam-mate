@@ -1,7 +1,8 @@
 class: OtpVerification
 table: otp_verifcation
 fields:
-  secret: String
+  otp: String
+  expiredAt: DateTime
   email: String
 indexes:
   unique_verification_email_idx:

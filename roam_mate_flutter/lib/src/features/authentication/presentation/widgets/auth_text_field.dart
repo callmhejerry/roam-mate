@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -9,6 +10,11 @@ class AuthTextField extends StatelessWidget {
   final String title;
   final String? hintText;
   final bool obscureText;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String? value)? validator;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
 
   const AuthTextField({
     super.key,
@@ -16,6 +22,11 @@ class AuthTextField extends StatelessWidget {
     required this.title,
     this.hintText,
     this.obscureText = false,
+    this.keyboardType,
+    this.inputFormatters,
+    this.validator,
+    this.suffixIcon,
+    this.prefixIcon,
   });
 
   @override
@@ -30,15 +41,18 @@ class AuthTextField extends StatelessWidget {
           ),
         ),
         Gap(5.h),
-        TextField(
+        TextFormField(
           obscureText: obscureText,
           controller: controller,
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          validator: validator,
           onTapOutside: (_) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 13.spMin,
+            fontSize: 14.spMin,
             color: Colors.black,
           ),
           decoration: InputDecoration(
@@ -47,6 +61,8 @@ class AuthTextField extends StatelessWidget {
               vertical: 17.h,
             ),
             isDense: true,
+            suffixIcon: suffixIcon,
+            prefixIcon: prefixIcon,
             filled: true,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),

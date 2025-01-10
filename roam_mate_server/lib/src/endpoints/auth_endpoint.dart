@@ -124,18 +124,28 @@ class AuthEndpoint extends Endpoint {
       );
     }
 
-    final otherOtp = OTP.generateTOTPCodeString(
-      otpVerification.secret,
-      DateTime.now().millisecondsSinceEpoch,
-      interval: Duration(minutes: 30).inSeconds,
-      length: 6,
+    final isOtpCorrect = BCrypt.checkpw(otp, otpVerification.otp);
+
+    if (!isOtpCorrect) {
+      throw AuthException(
+        errorType: AuthErrorType.invalidOTPException,
+        message: authTypeToMessage[AuthErrorType.invalidOTPException],
+      );
+    }
+
+    final isExpired = DateTime.now().compareTo(otpVerification.expiredAt) == 1;
+
+    if (isExpired) {
+      throw AuthException(
+        errorType: AuthErrorType.invalidOTPException,
+        message: authTypeToMessage[AuthErrorType.invalidOTPException],
+      );
+    }
+    await OtpVerification.db.deleteWhere(
+      session,
+      where: (t) => t.email.equals(email),
     );
-
-    print("OTP REMAINING SECONDS: ${OTP.remainingSeconds()}");
-    print("OTP TIME LEFT ${OTP.lastUsedTime}");
-
-    final isValid = OTP.constantTimeVerification(otp, otherOtp);
-    return isValid;
+    return true;
   }
 
   Future<LoginResponse> verifyOtp(
@@ -149,37 +159,30 @@ class AuthEndpoint extends Endpoint {
         message: authTypeToMessage[AuthErrorType.emailAlreadyVerifiedException],
       );
     } else {
-      if (await _validateOtp(session: session, email: email, otp: otp)) {
-        var user = await User.db.findFirstRow(
-          session,
-          where: (t) => t.email.equals(email),
-        );
+      await _validateOtp(session: session, email: email, otp: otp);
+      var user = await User.db.findFirstRow(
+        session,
+        where: (t) => t.email.equals(email),
+      );
 
-        user = user!.copyWith(verified: true);
-        user = await User.db.updateRow(session, user);
+      user = user!.copyWith(verified: true);
+      user = await User.db.updateRow(session, user);
 
-        final jwt = JWT(user.toJson());
-        final token = jwt.sign(
-          SecretKey(
-              session.passwords["auth_secret"] ?? "roam_mate_auth_secret"),
-        );
+      final jwt = JWT(user.toJson());
+      final token = jwt.sign(
+        SecretKey(session.passwords["auth_secret"] ?? "roam_mate_auth_secret"),
+      );
 
-        session.updateAuthenticated(
-          AuthenticationInfo(
-            user.id!,
-            {
-              Scope(user.scope),
-            },
-            authId: token,
-          ),
-        );
-        return LoginResponse(authToken: token, user: user);
-      } else {
-        throw AuthException(
-          errorType: AuthErrorType.invalidOTPException,
-          message: authTypeToMessage[AuthErrorType.invalidOTPException],
-        );
-      }
+      session.updateAuthenticated(
+        AuthenticationInfo(
+          user.id!,
+          {
+            Scope(user.scope),
+          },
+          authId: token,
+        ),
+      );
+      return LoginResponse(authToken: token, user: user);
     }
   }
 
@@ -302,7 +305,11 @@ class AuthEndpoint extends Endpoint {
 
       await OtpVerification.db.insertRow(
         session,
-        OtpVerification(secret: secret, email: email),
+        OtpVerification(
+          otp: BCrypt.hashpw(otp, BCrypt.gensalt()),
+          email: email,
+          expiredAt: DateTime.now().add(Duration(minutes: 30)),
+        ),
       );
 
       print("SENT OTP CODE: $otp");

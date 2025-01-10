@@ -1,0 +1,93 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "otp_verifcation"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "otp_verifcation",
+        "dartName": "OtpVerification",
+        "module": "roam_mate",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('otp_verifcation_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "otp",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "expiredAt",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "email",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "otp_verifcation_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "unique_verification_email_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "email"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"secret\" of table \"otp_verifcation\" will be dropped.",
+      "table": "otp_verifcation",
+      "columns": [
+        "secret"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"otp_verifcation\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "otp_verifcation",
+      "columns": [
+        "otp"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

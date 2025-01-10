@@ -27,7 +27,8 @@ enum AuthErrorType implements _i1.SerializableModel {
   failedToSendOtpException,
   emailAlreadyVerifiedException,
   otpNotSentException,
-  invalidOTPException;
+  invalidOTPException,
+  otpExpiredException;
 
   static AuthErrorType fromJson(int index) {
     switch (index) {
@@ -63,6 +64,8 @@ enum AuthErrorType implements _i1.SerializableModel {
         return otpNotSentException;
       case 15:
         return invalidOTPException;
+      case 16:
+        return otpExpiredException;
       default:
         throw ArgumentError(
             'Value "$index" cannot be converted to "AuthErrorType"');
