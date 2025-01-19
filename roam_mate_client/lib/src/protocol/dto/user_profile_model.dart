@@ -10,8 +10,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'user.dart' as _i2;
-import 'enums/gender_enum.dart' as _i3;
+import '../dto/user.dart' as _i2;
+import '../enums/gender_enum.dart' as _i3;
 
 abstract class UserProfile implements _i1.SerializableModel {
   UserProfile._({

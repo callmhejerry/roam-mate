@@ -1,6 +1,7 @@
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:roam_mate_server/src/generated/user.dart';
 import 'package:serverpod/server.dart';
+
+import '../generated/dto/user.dart';
 
 class AuthMiddleWare {
   static Future<AuthenticationInfo?> verifyToken(

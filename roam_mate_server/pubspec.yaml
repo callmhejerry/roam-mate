@@ -12,7 +12,7 @@ dependencies:
   email_validator: ^3.0.0
   otp: ^3.1.4
   serverpod: 2.3.0
-  serverpod_auth_server: ^2.3.0
+  serverpod_auth_server: 2.3.0
   uuid: ^4.5.1
 
 dev_dependencies:

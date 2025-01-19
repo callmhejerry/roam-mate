@@ -1,0 +1,5 @@
+enum: PropertyType
+serialized: byName
+values:
+  - sharedApartment
+  - selfContained

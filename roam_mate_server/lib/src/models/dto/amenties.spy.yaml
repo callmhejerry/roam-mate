@@ -1,0 +1,4 @@
+class: Amenity
+table: amenities
+fields:
+  name: String

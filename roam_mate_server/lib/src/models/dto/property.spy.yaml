@@ -1,0 +1,29 @@
+class: Property
+table: property
+fields:
+  location: String
+  price: double
+  roomType: PropertyType
+  title: String 
+  description: String
+  image: String
+  otherImages: String
+  video: String?
+  numberOfRooms: int?
+  verified: bool
+  propertyOwnerName: String
+  propertyOwnerEmail: String?
+  propertyOwnerPhoneNumber: String
+  amenities: List<PropertyAmenitites>?, relation(name=property_amenities)
+  latitude: double
+  longitude: double
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  property_location_idx:
+    fields: location
+  property_price_idx:
+    fields: price
+
+  
+  

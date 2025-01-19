@@ -11,10 +11,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:roam_mate_client/src/protocol/user.dart' as _i3;
+import 'package:roam_mate_client/src/protocol/dto/user.dart' as _i3;
 import 'package:roam_mate_client/src/protocol/response/login_response.dart'
     as _i4;
-import 'package:roam_mate_client/src/protocol/user_profile_model.dart' as _i5;
+import 'package:roam_mate_client/src/protocol/dto/user_profile_model.dart'
+    as _i5;
 import 'package:roam_mate_client/src/protocol/enums/gender_enum.dart' as _i6;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i7;
 import 'protocol.dart' as _i8;

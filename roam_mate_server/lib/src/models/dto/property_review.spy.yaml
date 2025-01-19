@@ -1,0 +1,8 @@
+class: PropertyReview
+table: property_review
+fields:
+  property: Property?, relation()
+  studentId: User?, relation()
+  rating: double
+  comment: String
+  createdAt: DateTime

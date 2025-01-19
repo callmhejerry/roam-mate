@@ -1,0 +1,6 @@
+class: PropertyAmenitites
+table: property_amenities
+fields:
+  property: Property? , relation(name=property_amenities)
+  amenity: Amenity?, relation()
+

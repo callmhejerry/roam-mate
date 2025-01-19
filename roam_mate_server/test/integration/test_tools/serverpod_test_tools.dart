@@ -14,10 +14,11 @@
 import 'package:serverpod_test/serverpod_test.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
-import 'package:roam_mate_server/src/generated/user.dart' as _i4;
+import 'package:roam_mate_server/src/generated/dto/user.dart' as _i4;
 import 'package:roam_mate_server/src/generated/response/login_response.dart'
     as _i5;
-import 'package:roam_mate_server/src/generated/user_profile_model.dart' as _i6;
+import 'package:roam_mate_server/src/generated/dto/user_profile_model.dart'
+    as _i6;
 import 'package:roam_mate_server/src/generated/enums/gender_enum.dart' as _i7;
 import 'package:roam_mate_server/src/generated/protocol.dart';
 import 'package:roam_mate_server/src/generated/endpoints.dart';

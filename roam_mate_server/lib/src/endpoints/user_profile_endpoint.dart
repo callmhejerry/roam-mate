@@ -1,5 +1,4 @@
 import 'package:roam_mate_server/src/generated/protocol.dart';
-import 'package:roam_mate_server/src/generated/user.dart';
 import 'package:serverpod/server.dart';
 
 class UserProfileEndpoint extends Endpoint {

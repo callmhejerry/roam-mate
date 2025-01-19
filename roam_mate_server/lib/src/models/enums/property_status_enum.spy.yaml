@@ -1,0 +1,5 @@
+enum: PropertyStatus
+serialized: byName
+values:
+  - available
+  - taken
