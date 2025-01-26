@@ -16,19 +16,21 @@ import 'dto/amenties.dart' as _i4;
 import 'dto/example.dart' as _i5;
 import 'dto/otp_verification.dart' as _i6;
 import 'dto/property.dart' as _i7;
-import 'dto/property_review.dart' as _i8;
-import 'dto/user.dart' as _i9;
-import 'dto/user_profile_model.dart' as _i10;
-import 'enums/auth_error_type_enum.dart' as _i11;
-import 'enums/gender_enum.dart' as _i12;
-import 'enums/property_status_enum.dart' as _i13;
-import 'enums/property_type_enum.dart' as _i14;
-import 'exceptions/auth_exception.dart' as _i15;
-import 'response/login_response.dart' as _i16;
+import 'dto/property_amenities.dart' as _i8;
+import 'dto/property_review.dart' as _i9;
+import 'dto/user.dart' as _i10;
+import 'dto/user_profile_model.dart' as _i11;
+import 'enums/auth_error_type_enum.dart' as _i12;
+import 'enums/gender_enum.dart' as _i13;
+import 'enums/property_status_enum.dart' as _i14;
+import 'enums/property_type_enum.dart' as _i15;
+import 'exceptions/auth_exception.dart' as _i16;
+import 'response/login_response.dart' as _i17;
 export 'dto/amenties.dart';
 export 'dto/example.dart';
 export 'dto/otp_verification.dart';
 export 'dto/property.dart';
+export 'dto/property_amenities.dart';
 export 'dto/property_review.dart';
 export 'dto/user.dart';
 export 'dto/user_profile_model.dart';
@@ -309,6 +311,71 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'property_amenities',
+      dartName: 'PropertyAmenitites',
+      schema: 'public',
+      module: 'roam_mate',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'property_amenities_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'propertyId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'amenityId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'property_amenities_fk_0',
+          columns: ['propertyId'],
+          referenceTable: 'property',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'property_amenities_fk_1',
+          columns: ['amenityId'],
+          referenceTable: 'amenities',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'property_amenities_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'property_review',
       dartName: 'PropertyReview',
       schema: 'public',
@@ -580,32 +647,35 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i7.Property) {
       return _i7.Property.fromJson(data) as T;
     }
-    if (t == _i8.PropertyReview) {
-      return _i8.PropertyReview.fromJson(data) as T;
+    if (t == _i8.PropertyAmenitites) {
+      return _i8.PropertyAmenitites.fromJson(data) as T;
     }
-    if (t == _i9.User) {
-      return _i9.User.fromJson(data) as T;
+    if (t == _i9.PropertyReview) {
+      return _i9.PropertyReview.fromJson(data) as T;
     }
-    if (t == _i10.UserProfile) {
-      return _i10.UserProfile.fromJson(data) as T;
+    if (t == _i10.User) {
+      return _i10.User.fromJson(data) as T;
     }
-    if (t == _i11.AuthErrorType) {
-      return _i11.AuthErrorType.fromJson(data) as T;
+    if (t == _i11.UserProfile) {
+      return _i11.UserProfile.fromJson(data) as T;
     }
-    if (t == _i12.Gender) {
-      return _i12.Gender.fromJson(data) as T;
+    if (t == _i12.AuthErrorType) {
+      return _i12.AuthErrorType.fromJson(data) as T;
     }
-    if (t == _i13.PropertyStatus) {
-      return _i13.PropertyStatus.fromJson(data) as T;
+    if (t == _i13.Gender) {
+      return _i13.Gender.fromJson(data) as T;
     }
-    if (t == _i14.PropertyType) {
-      return _i14.PropertyType.fromJson(data) as T;
+    if (t == _i14.PropertyStatus) {
+      return _i14.PropertyStatus.fromJson(data) as T;
     }
-    if (t == _i15.AuthException) {
-      return _i15.AuthException.fromJson(data) as T;
+    if (t == _i15.PropertyType) {
+      return _i15.PropertyType.fromJson(data) as T;
     }
-    if (t == _i16.LoginResponse) {
-      return _i16.LoginResponse.fromJson(data) as T;
+    if (t == _i16.AuthException) {
+      return _i16.AuthException.fromJson(data) as T;
+    }
+    if (t == _i17.LoginResponse) {
+      return _i17.LoginResponse.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.Amenity?>()) {
       return (data != null ? _i4.Amenity.fromJson(data) : null) as T;
@@ -619,32 +689,42 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i7.Property?>()) {
       return (data != null ? _i7.Property.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i8.PropertyReview?>()) {
-      return (data != null ? _i8.PropertyReview.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i8.PropertyAmenitites?>()) {
+      return (data != null ? _i8.PropertyAmenitites.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.User?>()) {
-      return (data != null ? _i9.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.PropertyReview?>()) {
+      return (data != null ? _i9.PropertyReview.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i10.UserProfile?>()) {
-      return (data != null ? _i10.UserProfile.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i10.User?>()) {
+      return (data != null ? _i10.User.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i11.AuthErrorType?>()) {
-      return (data != null ? _i11.AuthErrorType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i11.UserProfile?>()) {
+      return (data != null ? _i11.UserProfile.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i12.Gender?>()) {
-      return (data != null ? _i12.Gender.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i12.AuthErrorType?>()) {
+      return (data != null ? _i12.AuthErrorType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i13.PropertyStatus?>()) {
-      return (data != null ? _i13.PropertyStatus.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i13.Gender?>()) {
+      return (data != null ? _i13.Gender.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i14.PropertyType?>()) {
-      return (data != null ? _i14.PropertyType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i14.PropertyStatus?>()) {
+      return (data != null ? _i14.PropertyStatus.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i15.AuthException?>()) {
-      return (data != null ? _i15.AuthException.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.PropertyType?>()) {
+      return (data != null ? _i15.PropertyType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i16.LoginResponse?>()) {
-      return (data != null ? _i16.LoginResponse.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i16.AuthException?>()) {
+      return (data != null ? _i16.AuthException.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i17.LoginResponse?>()) {
+      return (data != null ? _i17.LoginResponse.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<List<_i8.PropertyAmenitites>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i8.PropertyAmenitites>(e))
+              .toList()
+          : null) as dynamic;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -671,31 +751,34 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i7.Property) {
       return 'Property';
     }
-    if (data is _i8.PropertyReview) {
+    if (data is _i8.PropertyAmenitites) {
+      return 'PropertyAmenitites';
+    }
+    if (data is _i9.PropertyReview) {
       return 'PropertyReview';
     }
-    if (data is _i9.User) {
+    if (data is _i10.User) {
       return 'User';
     }
-    if (data is _i10.UserProfile) {
+    if (data is _i11.UserProfile) {
       return 'UserProfile';
     }
-    if (data is _i11.AuthErrorType) {
+    if (data is _i12.AuthErrorType) {
       return 'AuthErrorType';
     }
-    if (data is _i12.Gender) {
+    if (data is _i13.Gender) {
       return 'Gender';
     }
-    if (data is _i13.PropertyStatus) {
+    if (data is _i14.PropertyStatus) {
       return 'PropertyStatus';
     }
-    if (data is _i14.PropertyType) {
+    if (data is _i15.PropertyType) {
       return 'PropertyType';
     }
-    if (data is _i15.AuthException) {
+    if (data is _i16.AuthException) {
       return 'AuthException';
     }
-    if (data is _i16.LoginResponse) {
+    if (data is _i17.LoginResponse) {
       return 'LoginResponse';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -727,32 +810,35 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'Property') {
       return deserialize<_i7.Property>(data['data']);
     }
+    if (dataClassName == 'PropertyAmenitites') {
+      return deserialize<_i8.PropertyAmenitites>(data['data']);
+    }
     if (dataClassName == 'PropertyReview') {
-      return deserialize<_i8.PropertyReview>(data['data']);
+      return deserialize<_i9.PropertyReview>(data['data']);
     }
     if (dataClassName == 'User') {
-      return deserialize<_i9.User>(data['data']);
+      return deserialize<_i10.User>(data['data']);
     }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i10.UserProfile>(data['data']);
+      return deserialize<_i11.UserProfile>(data['data']);
     }
     if (dataClassName == 'AuthErrorType') {
-      return deserialize<_i11.AuthErrorType>(data['data']);
+      return deserialize<_i12.AuthErrorType>(data['data']);
     }
     if (dataClassName == 'Gender') {
-      return deserialize<_i12.Gender>(data['data']);
+      return deserialize<_i13.Gender>(data['data']);
     }
     if (dataClassName == 'PropertyStatus') {
-      return deserialize<_i13.PropertyStatus>(data['data']);
+      return deserialize<_i14.PropertyStatus>(data['data']);
     }
     if (dataClassName == 'PropertyType') {
-      return deserialize<_i14.PropertyType>(data['data']);
+      return deserialize<_i15.PropertyType>(data['data']);
     }
     if (dataClassName == 'AuthException') {
-      return deserialize<_i15.AuthException>(data['data']);
+      return deserialize<_i16.AuthException>(data['data']);
     }
     if (dataClassName == 'LoginResponse') {
-      return deserialize<_i16.LoginResponse>(data['data']);
+      return deserialize<_i17.LoginResponse>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -786,12 +872,14 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i6.OtpVerification.t;
       case _i7.Property:
         return _i7.Property.t;
-      case _i8.PropertyReview:
-        return _i8.PropertyReview.t;
-      case _i9.User:
-        return _i9.User.t;
-      case _i10.UserProfile:
-        return _i10.UserProfile.t;
+      case _i8.PropertyAmenitites:
+        return _i8.PropertyAmenitites.t;
+      case _i9.PropertyReview:
+        return _i9.PropertyReview.t;
+      case _i10.User:
+        return _i10.User.t;
+      case _i11.UserProfile:
+        return _i11.UserProfile.t;
     }
     return null;
   }
