@@ -87,7 +87,7 @@ class _ResendTimerWidgetState extends State<ResendTimerWidget> {
                 "Resend",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16.spMin,
+                  fontSize: 16.sp,
                 ),
               ),
             )

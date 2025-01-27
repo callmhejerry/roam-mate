@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Text(
                 "Create an Account",
                 style: TextStyle(
-                  fontSize: 24.spMin,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -147,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return Text(
                       "Sign up",
                       style: TextStyle(
-                        fontSize: 16.spMin,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,
                       ),

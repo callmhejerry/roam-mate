@@ -41,8 +41,7 @@ class RoamMate extends StatelessWidget {
         designSize: Size(430, 932),
         minTextAdapt: true,
         splitScreenMode: true,
-        // useInheritedMediaQuery: true,
-
+        enableScaleText: () => true,
         builder: (context, child) {
           return MaterialApp.router(
             routerConfig: AppRouter.router,

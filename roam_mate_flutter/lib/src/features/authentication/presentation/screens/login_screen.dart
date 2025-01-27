@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Welcome back",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 24.spMin,
+                fontSize: 24.sp,
                 color: AppColors.textColor,
               ),
             ),
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               "Sign in to continue",
               style: TextStyle(
-                fontSize: 14.spMin,
+                fontSize: 14.sp,
               ),
             ),
             Gap(48.h),

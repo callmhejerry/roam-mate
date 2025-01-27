@@ -1,4 +1,3 @@
-import 'package:roam_mate_client/roam_mate_client.dart';
 import 'package:roam_mate_flutter/src/api/api_client.dart';
 import 'package:roam_mate_flutter/src/features/authentication/domain/entity/user_entity.dart';
 

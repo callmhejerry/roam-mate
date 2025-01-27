@@ -45,7 +45,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             Text(
               "Forgot Password",
               style: TextStyle(
-                fontSize: 20.spMin,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),

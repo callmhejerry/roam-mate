@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:pinput/pinput.dart';
 import 'package:roam_mate_flutter/src/features/authentication/domain/i_auth_repository.dart';
 import 'package:roam_mate_flutter/src/features/authentication/presentation/blocs/forgot_password_bloc/forgot_password_bloc.dart';
@@ -83,7 +80,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 height: 55,
                 width: 50,
                 textStyle: TextStyle(
-                  fontSize: 18.spMin,
+                  fontSize: 18.sp,
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w600,
                 ),
@@ -100,7 +97,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 height: 55,
                 width: 50,
                 textStyle: TextStyle(
-                  fontSize: 18.spMin,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                 ),
                 decoration: BoxDecoration(
@@ -228,7 +225,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         "Reset Password",
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: 16.spMin,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       );

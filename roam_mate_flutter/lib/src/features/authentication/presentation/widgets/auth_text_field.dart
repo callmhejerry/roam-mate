@@ -37,7 +37,7 @@ class AuthTextField extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 12.spMin,
+            fontSize: 12.sp,
           ),
         ),
         Gap(5.h),
@@ -52,7 +52,7 @@ class AuthTextField extends StatelessWidget {
           },
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 14.spMin,
+            fontSize: 14.sp,
             color: Colors.black,
           ),
           decoration: InputDecoration(
@@ -74,7 +74,7 @@ class AuthTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide.none,
             ),
-            fillColor: Color(0xff333333).withOpacity(.1),
+            fillColor: Color(0xff333333).withValues(alpha: .1),
           ),
         ),
       ],

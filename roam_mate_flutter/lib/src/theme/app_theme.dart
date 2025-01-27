@@ -7,6 +7,12 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
     scaffoldBackgroundColor: AppColors.scaffoldBgColor,
     fontFamily: "Poppins",
+    textTheme: Typography.englishLike2018.apply(
+      fontSizeFactor: 1.sp,
+      fontFamily: "Poppins",
+      displayColor: Colors.black,
+      bodyColor: Colors.black,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.scaffoldBgColor,
       iconTheme: IconThemeData(
@@ -40,7 +46,7 @@ class AppTheme {
         ),
         textStyle: TextStyle(
           fontWeight: FontWeight.w600,
-          fontSize: 16.spMin,
+          fontSize: 16.sp,
           color: AppColors.white,
         ),
       ),

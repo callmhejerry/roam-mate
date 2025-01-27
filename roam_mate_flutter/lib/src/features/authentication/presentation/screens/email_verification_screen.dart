@@ -46,7 +46,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             Text(
               "One-Time-Password",
               style: TextStyle(
-                fontSize: 18.spMin,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
