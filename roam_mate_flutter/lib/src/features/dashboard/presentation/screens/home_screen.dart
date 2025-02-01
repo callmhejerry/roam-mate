@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/property_listing_screen.dart';
+import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/search_screen.dart';
 import 'package:roam_mate_flutter/src/theme/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const name = "home-screen";
-  static const path = "/";
-
-  const HomeScreen({super.key});
+  final Widget child;
+  const HomeScreen({super.key, required this.child});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
-  List<Widget> screens = [
-    PropertyListingScreen(),
-    PropertyListingScreen(),
-    PropertyListingScreen(),
-    PropertyListingScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       bottomNavigationBar: CustomNavBar(
         initialIndex: 0,
         selectedItemColor: AppColors.primaryColor,
@@ -41,9 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Search",
           ),
           CustomNavItem(
-            icon: Icon(Icons.add_circle),
-          ),
-          CustomNavItem(
             icon: Icon(Iconsax.message),
             label: "Chats",
           ),
@@ -53,12 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+          switch (index) {
+            case 0:
+              context.goNamed(PropertyListingScreen.name);
+            case 1:
+              context.goNamed(SearchScreen.name);
+            default:
+              context.goNamed(PropertyListingScreen.name);
+          }
         },
       ),
-      body: screens[currentIndex],
+      body: widget.child,
     );
   }
 }
@@ -107,13 +100,15 @@ class _CustomNavBarState extends State<CustomNavBar> {
       padding: EdgeInsets.only(
         left: 16.w,
         right: 16.w,
-        top: 14.h,
-        bottom: MediaQuery.paddingOf(context).bottom,
+        top: 12.h,
+        bottom: MediaQuery.paddingOf(context).bottom > 0
+            ? MediaQuery.paddingOf(context).bottom
+            : 12.h,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          for (var i = 0; i < widget.items.length; i++)
+          for (var i = 0; i < widget.items.length + 1; i++)
             InkWell(
               onTap: () {
                 if (i == 2) return;
@@ -126,32 +121,55 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 }
                 widget.onTap(selectedIndex);
               },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconTheme(
-                    data: IconThemeData(
-                      applyTextScaling: true,
-                      color: i == selectedIndex || widget.items[i].label == null
-                          ? widget.selectedItemColor
-                          : Colors.grey,
-                      size: widget.items[i].label != null ? 24.sp : 45.sp,
-                    ),
-                    child: widget.items[i].icon,
-                  ),
-                  if (widget.items[i].label != null)
-                    Text(
-                      widget.items[i].label!,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.normal,
-                        color: i == selectedIndex
-                            ? widget.selectedItemColor
-                            : Colors.grey,
+              child: i == 2
+                  ? Container(
+                      width: 55.r,
+                      height: 55.r,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.primaryColor,
                       ),
+                      child: Center(
+                        child: Text(
+                          "+",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 40.sp,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconTheme(
+                          data: IconThemeData(
+                            applyTextScaling: true,
+                            color: i == selectedIndex ||
+                                    widget.items[i > 2 ? i - 1 : i].label ==
+                                        null
+                                ? widget.selectedItemColor
+                                : Colors.grey,
+                            size: widget.items[i > 2 ? i - 1 : i].label != null
+                                ? 24.sp
+                                : 45.sp,
+                          ),
+                          child: widget.items[i > 2 ? i - 1 : i].icon,
+                        ),
+                        if (widget.items[i > 2 ? i - 1 : i].label != null)
+                          Text(
+                            widget.items[i > 2 ? i - 1 : i].label!,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal,
+                              color: i == selectedIndex
+                                  ? widget.selectedItemColor
+                                  : Colors.grey,
+                            ),
+                          ),
+                      ],
                     ),
-                ],
-              ),
             ),
         ],
       ),

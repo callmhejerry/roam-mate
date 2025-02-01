@@ -3,14 +3,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/room_details_screen.dart';
 import 'package:roam_mate_flutter/src/theme/app_colors.dart';
 
 import '../widgets/property_card.dart';
+import '../widgets/room_card.dart';
 
 class PropertyListingScreen extends StatefulWidget {
   static const name = "property-listing";
-  static const path = "property-listing";
+  static const path = "/";
   const PropertyListingScreen({super.key});
 
   @override
@@ -22,13 +25,15 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 10.h),
+        physics: ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
                 Container(
-                  height: 260.h,
+                  height: 280.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/apartment-bg.jpg"),
@@ -71,7 +76,11 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                                 ),
                               )
                             ],
-                          )
+                          ),
+                          Icon(
+                            Iconsax.notification,
+                            color: AppColors.white,
+                          ),
                         ],
                       ),
                       Gap(20.h),
@@ -146,10 +155,10 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                 children: [
                   Gap(16.h),
                   Text(
-                    "Verified Accommodations",
+                    "Top rated accommodation",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 18,
+                      fontSize: 16.sp,
                     ),
                   ),
                   Gap(10.h),
@@ -166,6 +175,47 @@ class _PropertyListingScreenState extends State<PropertyListingScreen> {
                 itemBuilder: (context, index) {
                   return PropertyCard();
                 },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 21.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Gap(16.h),
+                  Text(
+                    "People with room",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  Gap(2.h),
+                  Text(
+                    "People with a room but looking for a roommate to join them",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Gap(10.h),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 245.h,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 21.w),
+                itemBuilder: (context, index) {
+                  return RoomCard(
+                    onTap: () {
+                      context.pushNamed(RoomDetailsScreen.name);
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) => Gap(8.w),
+                itemCount: 4,
               ),
             )
           ],
