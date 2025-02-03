@@ -9,6 +9,11 @@ auth:
   - logout:
 example:
   - hello:
+fileUpload:
+  - getUploadDescription:
+  - verifyUpload:
+room:
+  - addRoom:
 userProfile:
   - checkUsernameIsAvailable:
   - updateUserProfile:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -68,7 +69,11 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     child: Row(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (context.canPop()) {
+                              context.pop();
+                            }
+                          },
                           icon: Icon(
                             Icons.arrow_back,
                             color: AppColors.white,

@@ -4,6 +4,7 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
+  // static final ipAddress = "172.20.10.2";
   static final ipAddress = "localhost";
   late Client client;
   late SessionManager sessionManager;

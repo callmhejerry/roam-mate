@@ -1,0 +1,5 @@
+class: RoomAmenitites
+table: room_amenities
+fields:
+  room: Room? , relation(name=room_amenities)
+  amenity: Amenity?, relation()

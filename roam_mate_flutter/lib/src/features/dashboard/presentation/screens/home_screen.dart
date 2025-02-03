@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/property_listing_screen.dart';
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/search_screen.dart';
+import 'package:roam_mate_flutter/src/features/room/presentation/screen/add_room_screen.dart';
 import 'package:roam_mate_flutter/src/theme/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -122,20 +123,25 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 widget.onTap(selectedIndex);
               },
               child: i == 2
-                  ? Container(
-                      width: 55.r,
-                      height: 55.r,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.primaryColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "+",
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 40.sp,
+                  ? InkWell(
+                      onTap: () {
+                        context.pushNamed(AddRoomScreen.name);
+                      },
+                      child: Container(
+                        width: 55.r,
+                        height: 55.r,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.primaryColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "+",
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w200,
+                              fontSize: 40.sp,
+                            ),
                           ),
                         ),
                       ),

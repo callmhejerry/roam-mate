@@ -28,8 +28,7 @@ enum AuthErrorType implements _i1.SerializableModel {
   emailAlreadyVerifiedException,
   otpNotSentException,
   invalidOTPException,
-  otpExpiredException,
-  invalidEmailOrPasswordException;
+  otpExpiredException;
 
   static AuthErrorType fromJson(int index) {
     switch (index) {

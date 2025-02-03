@@ -17,9 +17,10 @@ import 'dart:async' as _i3;
 import 'package:roam_mate_server/src/generated/dto/user.dart' as _i4;
 import 'package:roam_mate_server/src/generated/response/login_response.dart'
     as _i5;
+import 'package:roam_mate_server/src/generated/dto/room.dart' as _i6;
 import 'package:roam_mate_server/src/generated/dto/user_profile_model.dart'
-    as _i6;
-import 'package:roam_mate_server/src/generated/enums/gender_enum.dart' as _i7;
+    as _i7;
+import 'package:roam_mate_server/src/generated/enums/gender_enum.dart' as _i8;
 import 'package:roam_mate_server/src/generated/protocol.dart';
 import 'package:roam_mate_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -104,6 +105,10 @@ class TestEndpoints {
 
   late final _ExampleEndpoint example;
 
+  late final _FileUploadEndpoint fileUpload;
+
+  late final _RoomEndpoint room;
+
   late final _UserProfileEndpoint userProfile;
 }
 
@@ -119,6 +124,14 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     example = _ExampleEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    fileUpload = _FileUploadEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    room = _RoomEndpoint(
       endpoints,
       serializationManager,
     );
@@ -432,6 +445,115 @@ class _ExampleEndpoint {
   }
 }
 
+class _FileUploadEndpoint {
+  _FileUploadEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<String?> getUploadDescription(
+    _i1.TestSessionBuilder sessionBuilder,
+    String path,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'fileUpload',
+        method: 'getUploadDescription',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'fileUpload',
+          methodName: 'getUploadDescription',
+          parameters: _i1.testObjectToJson({'path': path}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<String?>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<bool> verifyUpload(
+    _i1.TestSessionBuilder sessionBuilder,
+    String path,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'fileUpload',
+        method: 'verifyUpload',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'fileUpload',
+          methodName: 'verifyUpload',
+          parameters: _i1.testObjectToJson({'path': path}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<bool>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
+class _RoomEndpoint {
+  _RoomEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<_i6.Room> addRoom(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i6.Room room,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'room',
+        method: 'addRoom',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'room',
+          methodName: 'addRoom',
+          parameters: _i1.testObjectToJson({'room': room}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<_i6.Room>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
 class _UserProfileEndpoint {
   _UserProfileEndpoint(
     this._endpointDispatch,
@@ -471,13 +593,13 @@ class _UserProfileEndpoint {
     });
   }
 
-  _i3.Future<_i6.UserProfile> updateUserProfile(
+  _i3.Future<_i7.UserProfile> updateUserProfile(
     _i1.TestSessionBuilder sessionBuilder,
     String? firstName,
     String? lastName,
     int? userId,
     int? age,
-    _i7.Gender? gender,
+    _i8.Gender? gender,
     String? courseOfStudy,
     int? yearInSchool,
   ) async {
@@ -506,7 +628,7 @@ class _UserProfileEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i6.UserProfile>);
+        ) as _i3.Future<_i7.UserProfile>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

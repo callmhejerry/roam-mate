@@ -14,11 +14,12 @@ import 'dart:async' as _i2;
 import 'package:roam_mate_client/src/protocol/dto/user.dart' as _i3;
 import 'package:roam_mate_client/src/protocol/response/login_response.dart'
     as _i4;
+import 'package:roam_mate_client/src/protocol/dto/room.dart' as _i5;
 import 'package:roam_mate_client/src/protocol/dto/user_profile_model.dart'
-    as _i5;
-import 'package:roam_mate_client/src/protocol/enums/gender_enum.dart' as _i6;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i7;
-import 'protocol.dart' as _i8;
+    as _i6;
+import 'package:roam_mate_client/src/protocol/enums/gender_enum.dart' as _i7;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i8;
+import 'protocol.dart' as _i9;
 
 /// {@category Endpoint}
 class EndpointAuth extends _i1.EndpointRef {
@@ -127,6 +128,42 @@ class EndpointExample extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointFileUpload extends _i1.EndpointRef {
+  EndpointFileUpload(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'fileUpload';
+
+  _i2.Future<String?> getUploadDescription(String path) =>
+      caller.callServerEndpoint<String?>(
+        'fileUpload',
+        'getUploadDescription',
+        {'path': path},
+      );
+
+  _i2.Future<bool> verifyUpload(String path) => caller.callServerEndpoint<bool>(
+        'fileUpload',
+        'verifyUpload',
+        {'path': path},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointRoom extends _i1.EndpointRef {
+  EndpointRoom(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'room';
+
+  _i2.Future<_i5.Room> addRoom(_i5.Room room) =>
+      caller.callServerEndpoint<_i5.Room>(
+        'room',
+        'addRoom',
+        {'room': room},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointUserProfile extends _i1.EndpointRef {
   EndpointUserProfile(_i1.EndpointCaller caller) : super(caller);
 
@@ -140,16 +177,16 @@ class EndpointUserProfile extends _i1.EndpointRef {
         {'username': username},
       );
 
-  _i2.Future<_i5.UserProfile> updateUserProfile(
+  _i2.Future<_i6.UserProfile> updateUserProfile(
     String? firstName,
     String? lastName,
     int? userId,
     int? age,
-    _i6.Gender? gender,
+    _i7.Gender? gender,
     String? courseOfStudy,
     int? yearInSchool,
   ) =>
-      caller.callServerEndpoint<_i5.UserProfile>(
+      caller.callServerEndpoint<_i6.UserProfile>(
         'userProfile',
         'updateUserProfile',
         {
@@ -166,10 +203,10 @@ class EndpointUserProfile extends _i1.EndpointRef {
 
 class Modules {
   Modules(Client client) {
-    auth = _i7.Caller(client);
+    auth = _i8.Caller(client);
   }
 
-  late final _i7.Caller auth;
+  late final _i8.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -188,7 +225,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i8.Protocol(),
+          _i9.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -200,6 +237,8 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     auth = EndpointAuth(this);
     example = EndpointExample(this);
+    fileUpload = EndpointFileUpload(this);
+    room = EndpointRoom(this);
     userProfile = EndpointUserProfile(this);
     modules = Modules(this);
   }
@@ -207,6 +246,10 @@ class Client extends _i1.ServerpodClientShared {
   late final EndpointAuth auth;
 
   late final EndpointExample example;
+
+  late final EndpointFileUpload fileUpload;
+
+  late final EndpointRoom room;
 
   late final EndpointUserProfile userProfile;
 
@@ -216,6 +259,8 @@ class Client extends _i1.ServerpodClientShared {
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'auth': auth,
         'example': example,
+        'fileUpload': fileUpload,
+        'room': room,
         'userProfile': userProfile,
       };
 

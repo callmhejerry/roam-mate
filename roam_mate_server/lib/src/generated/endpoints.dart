@@ -12,9 +12,12 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/auth_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
-import '../endpoints/user_profile_endpoint.dart' as _i4;
-import 'package:roam_mate_server/src/generated/enums/gender_enum.dart' as _i5;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i6;
+import '../endpoints/file_upload_endpoint.dart' as _i4;
+import '../endpoints/room_endpoint.dart' as _i5;
+import '../endpoints/user_profile_endpoint.dart' as _i6;
+import 'package:roam_mate_server/src/generated/dto/room.dart' as _i7;
+import 'package:roam_mate_server/src/generated/enums/gender_enum.dart' as _i8;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i9;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -32,7 +35,19 @@ class Endpoints extends _i1.EndpointDispatch {
           'example',
           null,
         ),
-      'userProfile': _i4.UserProfileEndpoint()
+      'fileUpload': _i4.FileUploadEndpoint()
+        ..initialize(
+          server,
+          'fileUpload',
+          null,
+        ),
+      'room': _i5.RoomEndpoint()
+        ..initialize(
+          server,
+          'room',
+          null,
+        ),
+      'userProfile': _i6.UserProfileEndpoint()
         ..initialize(
           server,
           'userProfile',
@@ -246,6 +261,73 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['fileUpload'] = _i1.EndpointConnector(
+      name: 'fileUpload',
+      endpoint: endpoints['fileUpload']!,
+      methodConnectors: {
+        'getUploadDescription': _i1.MethodConnector(
+          name: 'getUploadDescription',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['fileUpload'] as _i4.FileUploadEndpoint)
+                  .getUploadDescription(
+            session,
+            params['path'],
+          ),
+        ),
+        'verifyUpload': _i1.MethodConnector(
+          name: 'verifyUpload',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['fileUpload'] as _i4.FileUploadEndpoint).verifyUpload(
+            session,
+            params['path'],
+          ),
+        ),
+      },
+    );
+    connectors['room'] = _i1.EndpointConnector(
+      name: 'room',
+      endpoint: endpoints['room']!,
+      methodConnectors: {
+        'addRoom': _i1.MethodConnector(
+          name: 'addRoom',
+          params: {
+            'room': _i1.ParameterDescription(
+              name: 'room',
+              type: _i1.getType<_i7.Room>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['room'] as _i5.RoomEndpoint).addRoom(
+            session,
+            params['room'],
+          ),
+        )
+      },
+    );
     connectors['userProfile'] = _i1.EndpointConnector(
       name: 'userProfile',
       endpoint: endpoints['userProfile']!,
@@ -263,7 +345,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userProfile'] as _i4.UserProfileEndpoint)
+              (endpoints['userProfile'] as _i6.UserProfileEndpoint)
                   .checkUsernameIsAvailable(
             session,
             params['username'],
@@ -294,7 +376,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'gender': _i1.ParameterDescription(
               name: 'gender',
-              type: _i1.getType<_i5.Gender?>(),
+              type: _i1.getType<_i8.Gender?>(),
               nullable: true,
             ),
             'courseOfStudy': _i1.ParameterDescription(
@@ -312,7 +394,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['userProfile'] as _i4.UserProfileEndpoint)
+              (endpoints['userProfile'] as _i6.UserProfileEndpoint)
                   .updateUserProfile(
             session,
             params['firstName'],
@@ -326,6 +408,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i6.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i9.Endpoints()..initializeEndpoints(server);
   }
 }

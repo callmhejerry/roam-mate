@@ -10,6 +10,7 @@ import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/pr
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/property_listing_screen.dart';
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/room_details_screen.dart';
 import 'package:roam_mate_flutter/src/features/dashboard/presentation/screens/search_screen.dart';
+import 'package:roam_mate_flutter/src/features/room/presentation/screen/add_room_screen.dart';
 
 class AppRouter {
   static final rootNavigator = GlobalKey<NavigatorState>();
@@ -73,6 +74,11 @@ class AppRouter {
         ],
       ),
       ...AuthRoutes.routes,
+      GoRoute(
+        path: AddRoomScreen.path,
+        name: AddRoomScreen.name,
+        builder: (context, state) => AddRoomScreen(),
+      ),
     ],
   );
 }

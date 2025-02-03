@@ -1,0 +1,15 @@
+class: Room
+table: room
+fields:
+  address: String
+  lat: double
+  long: double
+  roomType: RoomType
+  preferredGender: Gender
+  numberOfRoomMate: int
+  amenities: List<RoomAmenitites>?, relation(name=room_amenities)
+  roomRules: List<String>
+  rent: double
+  photos: List<String>
+  title: String
+  description: String

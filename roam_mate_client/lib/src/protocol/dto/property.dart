@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../enums/property_type_enum.dart' as _i2;
+import '../dto/property_amenities.dart' as _i3;
 
 abstract class Property implements _i1.SerializableModel {
   Property._({
@@ -28,6 +29,7 @@ abstract class Property implements _i1.SerializableModel {
     required this.propertyOwnerName,
     this.propertyOwnerEmail,
     required this.propertyOwnerPhoneNumber,
+    this.amenities,
     required this.latitude,
     required this.longitude,
     required this.createdAt,
@@ -49,6 +51,7 @@ abstract class Property implements _i1.SerializableModel {
     required String propertyOwnerName,
     String? propertyOwnerEmail,
     required String propertyOwnerPhoneNumber,
+    List<_i3.PropertyAmenitites>? amenities,
     required double latitude,
     required double longitude,
     required DateTime createdAt,
@@ -73,6 +76,10 @@ abstract class Property implements _i1.SerializableModel {
       propertyOwnerEmail: jsonSerialization['propertyOwnerEmail'] as String?,
       propertyOwnerPhoneNumber:
           jsonSerialization['propertyOwnerPhoneNumber'] as String,
+      amenities: (jsonSerialization['amenities'] as List?)
+          ?.map((e) =>
+              _i3.PropertyAmenitites.fromJson((e as Map<String, dynamic>)))
+          .toList(),
       latitude: (jsonSerialization['latitude'] as num).toDouble(),
       longitude: (jsonSerialization['longitude'] as num).toDouble(),
       createdAt:
@@ -113,6 +120,8 @@ abstract class Property implements _i1.SerializableModel {
 
   String propertyOwnerPhoneNumber;
 
+  List<_i3.PropertyAmenitites>? amenities;
+
   double latitude;
 
   double longitude;
@@ -136,6 +145,7 @@ abstract class Property implements _i1.SerializableModel {
     String? propertyOwnerName,
     String? propertyOwnerEmail,
     String? propertyOwnerPhoneNumber,
+    List<_i3.PropertyAmenitites>? amenities,
     double? latitude,
     double? longitude,
     DateTime? createdAt,
@@ -158,6 +168,8 @@ abstract class Property implements _i1.SerializableModel {
       'propertyOwnerName': propertyOwnerName,
       if (propertyOwnerEmail != null) 'propertyOwnerEmail': propertyOwnerEmail,
       'propertyOwnerPhoneNumber': propertyOwnerPhoneNumber,
+      if (amenities != null)
+        'amenities': amenities?.toJson(valueToJson: (v) => v.toJson()),
       'latitude': latitude,
       'longitude': longitude,
       'createdAt': createdAt.toJson(),
@@ -189,6 +201,7 @@ class _PropertyImpl extends Property {
     required String propertyOwnerName,
     String? propertyOwnerEmail,
     required String propertyOwnerPhoneNumber,
+    List<_i3.PropertyAmenitites>? amenities,
     required double latitude,
     required double longitude,
     required DateTime createdAt,
@@ -208,6 +221,7 @@ class _PropertyImpl extends Property {
           propertyOwnerName: propertyOwnerName,
           propertyOwnerEmail: propertyOwnerEmail,
           propertyOwnerPhoneNumber: propertyOwnerPhoneNumber,
+          amenities: amenities,
           latitude: latitude,
           longitude: longitude,
           createdAt: createdAt,
@@ -230,6 +244,7 @@ class _PropertyImpl extends Property {
     String? propertyOwnerName,
     Object? propertyOwnerEmail = _Undefined,
     String? propertyOwnerPhoneNumber,
+    Object? amenities = _Undefined,
     double? latitude,
     double? longitude,
     DateTime? createdAt,
@@ -253,6 +268,9 @@ class _PropertyImpl extends Property {
           : this.propertyOwnerEmail,
       propertyOwnerPhoneNumber:
           propertyOwnerPhoneNumber ?? this.propertyOwnerPhoneNumber,
+      amenities: amenities is List<_i3.PropertyAmenitites>?
+          ? amenities
+          : this.amenities?.map((e0) => e0.copyWith()).toList(),
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       createdAt: createdAt ?? this.createdAt,
